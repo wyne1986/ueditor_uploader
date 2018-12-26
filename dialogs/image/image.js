@@ -1008,7 +1008,9 @@
             });
             /* 翻页选择 */
             domUtils.on($G('pageNum'), 'change', function(e){
-                _this.getImageData();
+                if($G('searchTxt').value!=''){
+                    _this.getImageData();
+                }
             });
 
             /* 选中图片 */
@@ -1066,6 +1068,7 @@
                 url = 'https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ie=utf-8&word='+key+type+'&pn='+((page-1)*60)+'&rn=60&'+(new Date().valueOf())+'=';
 
             $G('searchListUl').innerHTML = lang.searchLoading;
+            $G('pageNum').setAttribute("disabled",true);
             ajax.request(url, {
                 'dataType': 'jsonp',
                 'charset': 'UTF-8',
@@ -1073,12 +1076,7 @@
                     var list = [];
                     if(json && json.data) {
                         var allNum = parseInt(json.bdFmtDispNum.replace("约","").replace(/,/g,""));
-                        var pagestr = '';
-                        for(var p=1;p<=Math.ceil(allNum/60);p++){
-                            pagestr += '<option value="'+p+'">第'+p+'页</option>';
-                        }
-                        $G('pageNum').innerHTML = pagestr;
-                        $G('pageNum').value = page;
+                        $G('pageNum').setAttribute("max",Math.ceil(allNum/60));
                         for(var i = 0; i < json.data.length; i++) {
                             if(json.data[i].objURL) {
                                 list.push({
@@ -1090,9 +1088,11 @@
                         }
                     }
                     _this.setList(list);
+                    $G('pageNum').removeAttribute("disabled");
                 },
                 'onerror':function(){
                     $G('searchListUl').innerHTML = lang.searchRetry;
+                    $G('pageNum').removeAttribute("disabled");
                 }
             });
         },
