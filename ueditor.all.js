@@ -29587,7 +29587,7 @@ UE.ui = baidu.editor.ui = {};
             toolbars: [["simpleupload","insertimage", "attachment"]]
         };
         if(type=="single"){
-            var uploader = UE.getEditor('content',opt);
+            var uploader = UE.getEditor(id,opt);
             uploader.addListener('simpleupload_ready', function (types) {
                 var ubtn = document.getElementById(id);
                 ubtn.style.setProperty('height', '28px', 'important');
@@ -29596,8 +29596,8 @@ UE.ui = baidu.editor.ui = {};
                 ubtn.innerHTML = "<image style='position: absolute !important;' src='"+uploader.ui.UEDITOR_HOME_URL + "themes/default/images/upload.png'/>";
                 uploader.fireEvent('simpleupload_custominit', ubtn);
             });
-            uploader.addListener('simpleupload_customcomplete', function (types, id, link, title, alt) {
-                callback({alt:alt,src:link,title:title,id:id});
+            uploader.addListener('simpleupload_customcomplete', function (types, bid, link, title, alt) {
+                callback({alt:alt,src:link,title:title,id:bid});
             });
         }else{
             var uploader = UE.getEditor(id,opt);
