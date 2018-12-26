@@ -14,4 +14,7 @@ callbackFunc为回调方法,唯一返回参数result为上传成功后的图片�
 result.title文件原名称,result.src文件路径
 
 
+多图上传功能的搜索图片功能添加翻页和颜色筛选功能
+
+
 注：single单图上传的按钮请直接给个空DIV即可
