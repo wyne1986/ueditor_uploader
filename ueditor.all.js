@@ -29583,6 +29583,7 @@ UE.ui = baidu.editor.ui = {};
             autoFloatEnabled:false,
             wordCount: false,
             sourceEditor: null,
+            textarea:null,
             scaleEnabled:true,
             toolbars: [["simpleupload","insertimage", "attachment"]]
         };
